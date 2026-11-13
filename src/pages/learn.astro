@@ -1,0 +1,35 @@
+---
+import Base from "../layouts/Base.astro";
+import CtaBand from "../components/CtaBand.astro";
+import { links } from "../config";
+const items = [
+  { kicker: "Live and free", title: "Free class", text: "A live class with our professors, plus the recording to keep.", href: "/free-class/", cta: "Get the free class" },
+  { kicker: "Wiki", title: "Ready Dev Start", text: "Our free wiki: quest logs, tool picks, studio blueprints (GDD, pitch deck, press kit) and career guides for every discipline.", href: links.readyDevStart, cta: "Open the wiki" },
+  { kicker: "Template", title: "Game design document template", text: "Our most-read guide: a free GDD template and how to fill it in.", href: "/free-game-design-document-template-how-to-guide/", cta: "Get the template" },
+  { kicker: "Blog", title: "Guides and stories", text: "Prototyping, narrative, marketing, remote teams and starting a studio.", href: "/blog/", cta: "Read the blog" },
+  { kicker: "Video", title: "YouTube", text: "Guest lectures, free class recordings and the Indie Game Lunch Hour.", href: links.youtube, cta: "Watch on YouTube" },
+  { kicker: "Community", title: "Discord", text: "Ask questions, find teammates, playtest and join live events.", href: links.discord, cta: "Join the Discord" },
+];
+---
+<Base title="Free game dev resources" description="Free resources from Indie Game Academy: a live free class, the Ready Dev Start wiki, a GDD template, guides, YouTube lectures and our Discord community." crumbs={[{ label: "Learn" }]}>
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="kicker">Learn for free</span>
+      <h1>Free resources to start your game dev journey</h1>
+      <p class="lead">Everything here is free. Pick one, make something small, and come tell us about it in the Discord.</p>
+    </div>
+  </section>
+  <section class="section--tight" style="padding-bottom:var(--space-16)">
+    <div class="wrap grid grid--3">
+      {items.map((i) => (
+        <article class="card">
+          <span class="kicker">{i.kicker}</span>
+          <h3>{i.title}</h3>
+          <p class="muted">{i.text}</p>
+          <div class="card__foot"><a class="iga-btn iga-btn--primary iga-btn--small" href={i.href}>{i.cta}</a></div>
+        </article>
+      ))}
+    </div>
+  </section>
+  <CtaBand title="Ready for live classes?" text="Level 1 is a free weekend bootcamp. Level 3 launches your game with a team in 8 weeks." primary={{ label: "See all programs", href: "/programs/" }} />
+</Base>

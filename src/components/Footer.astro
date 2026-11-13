@@ -1,0 +1,80 @@
+---
+import { links, site } from "../config";
+import Signup from "./Signup.astro";
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="top">
+      <div class="intro">
+        <img src="/brand/iga-crest-256.png" alt="Indie Game Academy crest" width="96" height="96" loading="lazy" />
+        <p><b>Indie Game Academy.</b> {site.tagline}</p>
+        <p class="caption">Get one email when a free class, a new cohort or Pitch Night is coming.</p>
+        <Signup compact />
+      </div>
+      <nav class="cols" aria-label="Footer">
+        <div>
+          <h2>Programs</h2>
+          <ul>
+            <li><a href="/programs/level-1/">Level 1: Embark (free)</a></li>
+            <li><a href="/programs/level-2/">Level 2: Explore</a></li>
+            <li><a href="/programs/level-3/">Level 3: Publish</a></li>
+            <li><a href="/programs/masterclasses/">Masterclasses</a></li>
+            <li><a href="/programs/">Compare programs</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Learn</h2>
+          <ul>
+            <li><a href="/free-class/">Free class</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href={links.readyDevStart}>Ready Dev Start wiki</a></li>
+            <li><a href={links.youtube}>YouTube</a></li>
+            <li><a href="/events/">Events</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Academy</h2>
+          <ul>
+            <li><a href="/about/">About IGA</a></li>
+            <li><a href="/about/professors/">Professors</a></li>
+            <li><a href="/games/">Student games</a></li>
+            <li><a href="/foundry/">Indie Game Foundry</a></li>
+            <li><a href="/faq/">FAQ</a></li>
+            <li><a href="/press/">Press kit</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Community</h2>
+          <ul>
+            <li><a href={links.discord}>Discord</a></li>
+            <li><a href={links.linkedin}>LinkedIn</a></li>
+            <li><a href={links.instagram}>Instagram</a></li>
+            <li><a href={links.tiktok}>TikTok</a></li>
+            <li><a href={links.x}>X</a></li>
+            <li><a href={links.facebook}>Facebook</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="bottom">
+      <p>© {year} Indie Game Academy · <a href={`mailto:${site.email}`}>{site.email}</a></p>
+      <p><a href={links.privacy}>Privacy policy</a> · <a href="/about/#values">Our values</a></p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer { background: #121030; padding: var(--space-16) 0 var(--space-8); margin-top: 0; border-top: 1px solid rgba(226, 220, 248, 0.12); }
+  .top { display: grid; gap: var(--space-12); }
+  @media (min-width: 960px) { .top { grid-template-columns: 1fr 1.6fr; } }
+  .intro img { width: 96px; height: 96px; margin-bottom: var(--space-4); }
+  .cols { display: grid; gap: var(--space-8); grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .cols h2 { font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: var(--space-3); }
+  .cols ul { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-2); }
+  .cols a { color: var(--ink); text-decoration: none; font-size: 15px; }
+  .cols a:hover { color: var(--headline); text-decoration: underline; }
+  .bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-3); margin-top: var(--space-12); padding-top: var(--space-6); border-top: 1px solid rgba(226, 220, 248, 0.12); font-size: 14px; color: var(--ink-muted); }
+  .bottom p { margin: 0; }
+  .bottom a { color: var(--ink-muted); }
+</style>

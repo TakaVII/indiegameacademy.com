@@ -1,0 +1,66 @@
+---
+import Base from "../../layouts/Base.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import Path from "../../components/Path.astro";
+import { programs, links } from "../../config";
+const { level1: l1, level2: l2, level3: l3 } = programs;
+const cards = [
+  { p: l1, href: "/programs/level-1/", for: "Total beginners, career changers and hobbyists.", get: "Your first small game and a taste of every part of game development.", format: "A weekend of live lessons" },
+  { p: l2, href: "/programs/level-2/", for: "Level 1 graduates and aspiring solo devs.", get: "A complete game, customized and published by you, plus engine and source control skills.", format: "One month, guided by an industry veteran" },
+  { p: l3, href: "/programs/level-3/", for: "Devs with a few small projects or jams who want to found a studio.", get: "An original game launched with a team, a pitch, Pitch Night with publishers, a certificate.", format: "8 weeks, Tue + Thu, 6:30-8:30 PM EST" },
+];
+---
+<Base title="Game development programs: Level 1, 2 and 3" description="Three live, online game dev programs: Level 1 Embark (free weekend), Level 2 Explore ($499, one month) and Level 3 Publish ($999, 8 weeks with a team and Pitch Night)." crumbs={[{ label: "Programs" }]}>
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="kicker">Programs</span>
+      <h1>One path from first game to first studio</h1>
+      <p class="lead">Every IGA program is live, online and taught by people who ship games. Start free with Level 1, go solo in Level 2, and launch a game with a team in Level 3.</p>
+    </div>
+  </section>
+
+  <section class="section--tight">
+    <div class="wrap">
+      <div class="grid grid--3">
+        {cards.map((c) => (
+          <article class="card">
+            <span class="kicker">{c.p.length}</span>
+            <h3>{c.p.name}</h3>
+            <p style="font-family:var(--font-display);font-size:28px;color:var(--ink)">{c.p.price}</p>
+            <p><b>For:</b> {c.for}</p>
+            <p><b>You leave with:</b> {c.get}</p>
+            <p class="muted">{c.format}</p>
+            <p class="muted">{c.p.next ? c.p.next : "Next date: coming soon. Join the list to hear first."}</p>
+            <div class="card__foot row">
+              <a class="iga-btn iga-btn--primary iga-btn--small" href={c.href}>See {c.p.short}</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--banners">
+    <div class="wrap">
+      <div class="section-head"><h2 style="text-shadow:0 3px 0 var(--night-navy)">How the levels connect</h2><p>Each step ends in a stronger artifact: a first game, a published solo game, a launched team game and a pitch. The most promising games can go on to the Indie Game Foundry.</p></div>
+      <Path />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <div>
+        <h2>Masterclasses</h2>
+        <p class="lead">Four-hour live deep dives with industry veterans on one topic: game design, visual design, legal, Kickstarter and studio founding.</p>
+        <a class="iga-btn iga-btn--ghost" href="/programs/masterclasses/">See masterclasses</a>
+      </div>
+      <div class="card">
+        <h3>Not sure where to start?</h3>
+        <p>Book a free 30-minute chat with our headmaster, Willem Delventhal. Tell us what you want to make and we'll point you to the right level.</p>
+        <div class="card__foot"><a class="iga-btn iga-btn--secondary" href={links.consultation}>Book a free chat</a></div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

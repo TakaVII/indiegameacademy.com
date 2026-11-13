@@ -1,0 +1,31 @@
+---
+import Base from "../layouts/Base.astro";
+import { links, site, stats } from "../config";
+---
+<Base title="Press kit" description="Indie Game Academy press kit: who we are, key facts, logos and contact for press." crumbs={[{ label: "Press kit" }]}>
+  <section class="page-hero">
+    <div class="wrap"><span class="kicker">Press</span><h1>Press kit</h1><p class="lead">For press, partners and event organizers. Contact: <a href={`mailto:${site.email}`}>{site.email}</a>.</p></div>
+  </section>
+  <section class="section--tight">
+    <div class="wrap grid grid--2">
+      <div class="stack">
+        <h2>About Indie Game Academy</h2>
+        <p>Indie Game Academy (IGA) is a live, online, gamified game development school. Students learn in live classes, build and launch real games with a team, and pitch them to publishers at Pitch Night. Its publishing arm, the Indie Game Foundry, helps the most promising games reach Steam.</p>
+        <p>IGA started in 2020. Its mission is to decentralize game development, so more creators can launch their own studios and projects and build a fairer, more sustainable industry.</p>
+        <p><b>Programs:</b> Level 1: Embark (free weekend), Level 2: Explore (one month), Level 3: Publish (8 weeks, team game and Pitch Night), live masterclasses.</p>
+        <p><b>Team:</b> Willem Delventhal (Headmaster), Jessica Rowley (Chief of Operations), Ulises Rubino (Chief of Marketing).</p>
+      </div>
+      <div class="stack">
+        <h2>Key facts</h2>
+        <ul class="checks">{stats.map((s) => <li><b>{s.value}</b> {s.label}</li>)}</ul>
+        <h2>Logos</h2>
+        <div class="row">
+          <a class="card card--link" href="/brand/iga-crest.png" download style="align-items:center"><img src="/brand/iga-crest-256.png" alt="IGA crest" width="120" height="120" /><span>IGA crest (PNG)</span></a>
+          <a class="card card--link" href="/brand/indie-game-foundry-logo.png" download style="align-items:center"><img src="/brand/indie-game-foundry-logo.png" alt="Indie Game Foundry logo" width="120" height="130" /><span>Foundry logo (PNG)</span></a>
+        </div>
+        <p class="caption">Use the full-color crest. Don't stretch, recolor or rotate it, and keep clear space around it.</p>
+        <p><a class="iga-btn iga-btn--primary" href={links.pressKitPdf}>Download the full press kit (PDF)</a></p>
+      </div>
+    </div>
+  </section>
+</Base>

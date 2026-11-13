@@ -1,0 +1,64 @@
+---
+import Base from "../../layouts/Base.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import { programs, links } from "../../config";
+const l2 = programs.level2;
+const courseSchema = {
+  "@context": "https://schema.org", "@type": "Course", name: "Level 2: Explore",
+  description: "A one-month live online game development bootcamp: hone technical skills and take a complete game through the solo dev pipeline to release.",
+  provider: { "@type": "Organization", name: "Indie Game Academy", sameAs: "https://indiegameacademy.com" },
+  offers: { "@type": "Offer", price: "499", priceCurrency: "USD", category: "Paid" },
+};
+---
+<Base title="Level 2: Explore — one-month solo game dev bootcamp" description="Level 2 is a one-month live bootcamp ($499): an industry veteran guides you through the full solo dev pipeline, engine, source control and publishing a complete game." crumbs={[{ label: "Programs", href: "/programs/" }, { label: "Level 2: Explore" }]} schema={courseSchema}>
+  <section class="page-hero page-hero--banners">
+    <div class="wrap split">
+      <div>
+        <span class="kicker" style="color:var(--white)">Level 2: Explore · {l2.price}</span>
+        <h1>Take a game from idea to release, solo</h1>
+        <p class="lead">A month-long bootcamp for devs who want the full solo experience. An industry veteran guides you as you customize a complete game and publish it, learning the engine, source control and release on the way.</p>
+        <div class="row">
+          <a class="iga-btn iga-btn--primary" href={l2.cta.href}>{l2.cta.label}</a>
+          <a class="iga-btn iga-btn--ghost" href={links.consultation}>Book a free chat</a>
+        </div>
+      </div>
+      <img class="badge-img" src="/brand/level-2-badge.png" alt="Level 2 badge: IGA Complete" width="360" height="301" />
+    </div>
+  </section>
+
+  <section class="section--tight">
+    <div class="wrap">
+      <dl class="facts" style="margin-top:0">
+        <div><dt>Next cohort</dt><dd>{l2.next || "Returning soon: join the waitlist"}</dd></div>
+        <div><dt>Length</dt><dd>One month</dd></div>
+        <div><dt>Where</dt><dd>Live, online</dd></div>
+        <div><dt>Price</dt><dd>{l2.price}</dd></div>
+        <div><dt>You leave with</dt><dd>A complete game, published by you</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap grid grid--2">
+      <div>
+        <h2>What you'll do</h2>
+        <ul class="checks">
+          <li>Customize a fully featured game (the game changes every cohort) and make it yours</li>
+          <li>Deep dive into the tools: engine basics and source control</li>
+          <li>Go through the whole solo pipeline, from ideation to release</li>
+          <li>Publish your game</li>
+        </ul>
+      </div>
+      <div>
+        <h2>Perfect for</h2>
+        <ul class="checks">
+          <li>Level 1 graduates who want to keep going</li>
+          <li>Aspiring solo developers who want hands-on technical skills</li>
+          <li>Anyone who wants a shipped game before joining a team in Level 3</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title="Want to build with a team?" text="Level 3 puts you in a team for 8 weeks, launches your game and ends at Pitch Night." primary={{ label: "See Level 3", href: "/programs/level-3/" }} secondary={{ label: "Join the Discord", href: links.discord }} />
+</Base>

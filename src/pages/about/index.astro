@@ -1,0 +1,62 @@
+---
+import Base from "../../layouts/Base.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import { stats, links } from "../../config";
+const team = [
+  { name: "Willem Delventhal", title: "Headmaster", bio: "10+ years in games (Paradox, Meta, IMVU). Teaches most Level 3 sessions. On the Guildhall podcast he's the Wizard of Games." },
+  { name: "Jessica Rowley", title: "Chief of Operations", bio: "Former Events and Program Director at Global Game Jam." },
+  { name: "Ulises Rubino", title: "Chief of Marketing", bio: "Built one of Venezuela's top game dev blogs and led marketing at 4Geeks Academy." },
+];
+const values = [
+  { t: "Games are for everyone", d: "We're pro LGBTQ+ and non-binary people, pro diversity and inclusion, and pro women's rights. The game industry hasn't been equal for all, and we actively work to change that." },
+  { t: "No hate, no harm", d: "Zero tolerance for hate speech. Against violence that encourages harm in real life, and against predatory or manipulative monetization." },
+  { t: "AI with consent", d: "AI will be a common game dev tool, so we teach its thoughtful use. It should augment people, not replace them. Training data must be given with consent, and creators who consent should be paid fairly. AI use should be disclosed when hiring creative talent and in public releases." },
+  { t: "Kindness in conflict", d: "We welcome different opinions, handle conflict with patience, directly and quickly, and believe in restorative justice before punishment." },
+  { t: "Safety first", d: "Our community's safety comes before anything. If you ever feel unsafe, write to team@indiegameacademy.com." },
+];
+---
+<Base title="About Indie Game Academy" description="Indie Game Academy started in 2020 as an online school for game developers. Today we help devs found indie studios: live classes, team games, Pitch Night and our own publishing arm." crumbs={[{ label: "About" }]}>
+  <section class="page-hero">
+    <div class="wrap split">
+      <div>
+        <span class="kicker">About IGA</span>
+        <h1>We help game devs become indie founders</h1>
+        <p class="lead">Indie Game Academy started in 2020 as an online school for game developers. Then the layoffs came. Junior hiring in games collapsed, while indie studios kept rising. So we changed our goal: from helping students get hired to helping them found their own studios. We call it the Age of Indie.</p>
+        <p>Our mission is to decentralize game development, so more creators can launch their own studios and projects and build a fairer, more sustainable industry.</p>
+      </div>
+      <img src="/brand/iga-crest.png" alt="Indie Game Academy crest" width="360" height="360" style="max-width:300px;margin:0 auto" />
+    </div>
+  </section>
+
+  <section class="section--tight section--card">
+    <div class="wrap"><ul class="stats" role="list" style="list-style:none;padding:0;margin:0">{stats.map((s) => <li class="stat"><span class="stat__value">{s.value}</span><span class="stat__label">{s.label}</span></li>)}</ul></div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head"><h2>How we teach</h2><p>Joy, impact, kindness and celebration. And a little lore.</p></div>
+      <div class="grid grid--3">
+        <div class="card"><h3>Live, always</h3><p>Classes happen live in our Discord with professors who ship games. You can ask, share your screen and get unstuck the same day.</p></div>
+        <div class="card"><h3>Fun first</h3><p>Students are sorted into Houses (Cleric, Ranger, Warrior, Rogue) and compete for the House Cup. Learning sticks better when it's a game.</p></div>
+        <div class="card"><h3>Gamedev therapy, and accountability</h3><p>We cheer you on through the hard parts. We also make sure you launch a dang game.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--card">
+    <div class="wrap">
+      <div class="section-head"><h2>The founding team</h2></div>
+      <div class="grid grid--3">{team.map((m) => <div class="card"><span class="kicker">{m.title}</span><h3>{m.name}</h3><p class="muted">{m.bio}</p></div>)}</div>
+      <p class="mt-8"><a class="iga-btn iga-btn--ghost" href="/about/professors/">Meet our professors</a></p>
+    </div>
+  </section>
+
+  <section class="section" id="values">
+    <div class="wrap">
+      <div class="section-head"><h2>Our values</h2><p>What we believe in, expect of our team and the people we work with, and work to bring to the world.</p></div>
+      <div class="grid grid--2">{values.map((v) => <div class="card"><h3>{v.t}</h3><p class="muted">{v.d}</p></div>)}</div>
+    </div>
+  </section>
+
+  <CtaBand title="Come build with us" text="Start with the free class and the Discord, or apply to Level 3." />
+</Base>

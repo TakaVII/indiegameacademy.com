@@ -1,0 +1,188 @@
+---
+import Base from "../layouts/Base.astro";
+import GameCard from "../components/GameCard.astro";
+import Path from "../components/Path.astro";
+import CtaBand from "../components/CtaBand.astro";
+import { programs, stats, links, gauntlet } from "../config";
+import games from "../data/games.json";
+import { testimonials } from "../data/testimonials";
+import { foundryGames } from "../data/foundry";
+
+const featured = ["mecha-marauders", "rose-to-revolution", "fig-broccoli", "meteor-down", "atomic-claws", "jannis-jinxed-journey"]
+  .map((s) => games.find((g) => g.slug === s))
+  .filter(Boolean) as typeof games;
+const l3 = programs.level3;
+---
+<Base title="Indie Game Academy" description="Live, online game development school. Build and launch a game with a team in 8 weeks, pitch it to publishers, and learn to run an indie studio. Level 1 is free.">
+  <section class="hero">
+    <div class="wrap hero__inner">
+      <div class="hero__copy">
+        <span class="kicker">Welcome, wizard</span>
+        <h1>Launch a game. Found a studio.</h1>
+        <p class="lead">Indie Game Academy is a live, online game dev school. You learn from industry veterans twice a week, build an original game with a team, launch it, and pitch it to real publishers. We turn students into game devs and game devs into indie studio founders.</p>
+        <div class="row">
+          <a class="iga-btn iga-btn--primary" href="/programs/level-3/">Apply to Level 3</a>
+          <a class="iga-btn iga-btn--ghost" href="/programs/level-1/">Start free with Level 1</a>
+        </div>
+        <p class="caption hero__note">{l3.next ? l3.next : "Level 3: 8 weeks, live, $999 (scholarships available)."} Level 1 is free.</p>
+      </div>
+      <div class="hero__art">
+        <img src="/brand/iga-crest.png" alt="Indie Game Academy crest" width="420" height="420" fetchpriority="high" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section--tight section--card">
+    <div class="wrap">
+      <ul class="stats" role="list" style="list-style:none;padding:0;margin:0">
+        {stats.map((s) => <li class="stat"><span class="stat__value">{s.value}</span><span class="stat__label">{s.label}</span></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">The Age of Indie</span>
+        <h2>Don't wait to be hired. Build your own studio.</h2>
+        <p>When we started in 2020, a junior developer had about an 8% chance of being hired within a year. Today it's under 1%. That said, indie studios are rising, and the tools to make and sell a game have never been closer to hand. We teach you to ship games and run a studio, with a team, from day one.</p>
+      </div>
+      <div class="grid grid--4">
+        <div class="card"><h3>Learn live</h3><p>Two live classes a week with veteran professors, in our Discord. No pre-recorded course to fall behind on.</p></div>
+        <div class="card"><h3>Build with a team</h3><p>Programmers, artists, designers, writers and marketers, sorted into Houses. Solo devs welcome too.</p></div>
+        <div class="card"><h3>Launch a game</h3><p>Every Level 3 team releases its game on itch.io. Of 42 games made in Level 3, 40 launched.</p></div>
+        <div class="card"><h3>Pitch to publishers</h3><p>Finish at Pitch Night in front of publishers and industry judges. The best can publish with our own Foundry.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--banners">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker" style="color:var(--white)">Your path</span>
+        <h2 style="text-shadow:0 3px 0 var(--night-navy)">Start free. Level up when you're ready.</h2>
+        <p>Every program ends with something real in your hands: a game, a team, a pitch. Take them in order or jump in where you are.</p>
+      </div>
+      <Path />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <div>
+        <span class="kicker">Our flagship program</span>
+        <h2>Level 3: Publish</h2>
+        <p class="lead">Eight weeks to ideate, build and launch an original game with a team, guided by a squad of veteran professors. Then you pitch it live.</p>
+        <ul class="iga-pills">
+          <li class="iga-pill"><strong>8 weeks</strong> live, Tuesdays and Thursdays</li>
+          <li class="iga-pill">Prototype, alpha, beta, launch</li>
+          <li class="iga-pill">Your game released on itch.io</li>
+          <li class="iga-pill">Pitch Night with publishers</li>
+          <li class="iga-pill"><strong>{l3.price}</strong> · scholarships available</li>
+        </ul>
+        <div class="row">
+          <a class="iga-btn iga-btn--primary" href="/programs/level-3/">See Level 3</a>
+          <a class="iga-btn iga-btn--ghost" href={links.consultation}>Book a free 30-minute chat</a>
+        </div>
+      </div>
+      <ol class="timeline" style="grid-template-columns:1fr 1fr">
+        <li><span class="weeks">Weeks 1-2</span><h3>Pre-production</h3><p>Sorting into Houses, team up, playable prototype.</p></li>
+        <li><span class="weeks">Weeks 3-4</span><h3>Alpha</h3><p>Core loop in, first playtests.</p></li>
+        <li><span class="weeks">Weeks 5-6</span><h3>Beta</h3><p>Content and polish, plus your go-to-market plan.</p></li>
+        <li><span class="weeks">Weeks 7-8</span><h3>Launch</h3><p>Release on itch.io, then Pitch Night.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--card">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Made at IGA</span>
+        <h2>Play our graduates' games</h2>
+        <p>These games were built by student teams in our programs. Credit goes to them: we just made sure they launched a dang game.</p>
+      </div>
+      <div class="grid grid--3">
+        {featured.map((g) => <GameCard game={g} />)}
+      </div>
+      <p class="mt-8"><a class="iga-btn iga-btn--ghost" href="/games/">See all {games.length} games</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <div>
+        <img src="/brand/indie-game-foundry-logo.png" alt="Indie Game Foundry logo" width="300" height="324" loading="lazy" style="max-width:260px;margin:0 auto" />
+      </div>
+      <div>
+        <span class="kicker">After Level 3</span>
+        <h2>The Indie Game Foundry</h2>
+        <p class="lead">Our publishing arm. The Foundry helps the most promising IGA games reach players on Steam.</p>
+        <ul class="checks">
+          {foundryGames.map((g) => <li><b>{g.title}</b> by {g.studio}. <a href={g.steam}>Wishlist on Steam</a></li>)}
+        </ul>
+        <a class="iga-btn iga-btn--secondary" href="/foundry/">Meet the Foundry</a>
+      </div>
+    </div>
+  </section>
+
+  {gauntlet.public && (
+    <section class="section section--alt">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker" style="color:var(--white)">New for 2027</span>
+          <h2>The Indie Game Gauntlet</h2>
+          <p>Get discovered and funded, live. Teams with a vertical slice compete on stream for publishing deals.</p>
+        </div>
+        <a class="iga-btn iga-btn--primary" href={gauntlet.url}>Enter the Gauntlet</a>
+      </div>
+    </section>
+  )}
+
+  <section class="section section--card">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">From our graduates</span>
+        <h2>Don't just take our word for it</h2>
+      </div>
+      <div class="grid grid--3">
+        {testimonials.map((t) => (
+          <figure class="quote">
+            <blockquote>"{t.quote}"</blockquote>
+            <figcaption><b>{t.name}</b>{t.role}</figcaption>
+          </figure>
+        ))}
+      </div>
+      <p class="mt-8 caption">Rated 4.97/5 by graduates on <a href={links.courseReport}>Course Report</a>.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <div>
+        <span class="kicker">Free, every month</span>
+        <h2>Not ready to apply? Learn with us for free.</h2>
+        <p class="lead">Free live classes, the Indie Game Lunch Hour every Wednesday, Pitch Nights and jams in our Discord, plus the Ready Dev Start wiki with templates and career guides.</p>
+        <div class="row">
+          <a class="iga-btn iga-btn--primary" href="/free-class/">Get the free class</a>
+          <a class="iga-btn iga-btn--secondary" href={links.discord}>Join the Discord</a>
+        </div>
+      </div>
+      <div class="grid">
+        <a class="card card--link" href="/free-game-design-document-template-how-to-guide/"><span class="kicker">Template</span><h3>Free game design document template</h3><p class="muted">Our most-read guide: a game design document template and how to fill it in.</p></a>
+        <a class="card card--link" href={links.readyDevStart}><span class="kicker">Wiki</span><h3>Ready Dev Start</h3><p class="muted">Quest logs, tools, studio blueprints and career guides by discipline.</p></a>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .hero { background: linear-gradient(90deg, var(--night-navy) 0%, rgba(26,24,64,.92) 45%, rgba(26,24,64,.35) 100%), var(--surface-alt) var(--banners) right center / 1116px auto repeat; padding: var(--space-16) 0; }
+  .hero__inner { display: grid; gap: var(--space-8); align-items: center; }
+  @media (min-width: 900px) { .hero__inner { grid-template-columns: 1.3fr 0.7fr; } }
+  .hero h1 { font-size: clamp(40px, 7vw, 76px); max-width: 11em; }
+  .hero__note { margin-top: var(--space-4); }
+  .hero__art img { width: min(100%, 380px); margin: 0 auto; filter: drop-shadow(0 18px 40px rgba(0,0,0,.45)); }
+  @media (max-width: 899px) { .hero__art { display: none; } .hero { padding: var(--space-12) 0; } }
+</style>

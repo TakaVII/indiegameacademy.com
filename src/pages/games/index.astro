@@ -1,0 +1,41 @@
+---
+import Base from "../../layouts/Base.astro";
+import GameCard from "../../components/GameCard.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import games from "../../data/games.json";
+const sorted = [...games].sort((a, b) => (a.image ? 0 : 1) - (b.image ? 0 : 1) || b.date.localeCompare(a.date));
+const genres = [...new Set(games.flatMap((g) => g.genres))].filter((g) => games.filter((x) => x.genres.includes(g)).length >= 2).sort();
+---
+<Base title="Student games: play what our graduates built" description="Games built and launched by Indie Game Academy student teams: platformers, strategy, adventure, puzzle and more." crumbs={[{ label: "Student games" }]}>
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="kicker">Made at IGA</span>
+      <h1>Play our graduates' games</h1>
+      <p class="lead">{games.length} games built by student teams in our programs. Every one of them is someone's first launch. Play them, share them, and give the devs some love.</p>
+      <div class="row filters" role="group" aria-label="Filter by genre">
+        <button class="iga-btn iga-btn--small iga-btn--primary" data-genre="">All</button>
+        {genres.map((g) => <button class="iga-btn iga-btn--small iga-btn--ghost" data-genre={g}>{g}</button>)}
+      </div>
+    </div>
+  </section>
+  <section class="section--tight">
+    <div class="wrap">
+      <div class="grid grid--3" id="games">
+        {sorted.map((g) => <div data-genres={g.genres.join("|")}><GameCard game={g} /></div>)}
+      </div>
+    </div>
+  </section>
+  <CtaBand title="Want your game here?" text="Level 3 teams launch an original game in 8 weeks. Level 1 is free if you're just starting." />
+</Base>
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>(".filters button");
+  buttons.forEach((b) =>
+    b.addEventListener("click", () => {
+      const genre = b.dataset.genre || "";
+      buttons.forEach((x) => { x.classList.toggle("iga-btn--primary", x === b); x.classList.toggle("iga-btn--ghost", x !== b); });
+      document.querySelectorAll<HTMLElement>("#games > div").forEach((el) => {
+        el.hidden = !!genre && !(el.dataset.genres || "").split("|").includes(genre);
+      });
+    })
+  );
+</script>

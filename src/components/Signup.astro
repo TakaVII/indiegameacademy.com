@@ -1,0 +1,16 @@
+---
+// Email signup. With links.newsletterAction set, posts straight to Mailchimp's embedded form;
+// otherwise it sends people to the hosted signup page (no data passes through this site).
+import { links } from "../config";
+interface Props { compact?: boolean; label?: string }
+const { compact = false, label = "Sign up" } = Astro.props;
+---
+{links.newsletterAction ? (
+  <form class="signup" action={links.newsletterAction} method="post" target="_blank">
+    <label class="visually-hidden" for={compact ? "email-footer" : "email-main"}>Email address</label>
+    <input type="email" name="EMAIL" id={compact ? "email-footer" : "email-main"} placeholder="you@example.com" required autocomplete="email" />
+    <button class="iga-btn iga-btn--primary" type="submit">{label}</button>
+  </form>
+) : (
+  <div class="row"><a class="iga-btn iga-btn--primary" href={links.newsletter}>{label}</a></div>
+)}

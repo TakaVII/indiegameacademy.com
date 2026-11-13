@@ -1,0 +1,184 @@
+---
+import Base from "../../layouts/Base.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import GameCard from "../../components/GameCard.astro";
+import { programs, links } from "../../config";
+import games from "../../data/games.json";
+import professors from "../../data/professors.json";
+import { testimonials } from "../../data/testimonials";
+
+const l3 = programs.level3;
+const showcase = ["rose-to-revolution", "mecha-marauders", "meteor-down"].map((s) => games.find((g) => g.slug === s)).filter(Boolean) as typeof games;
+const faqs = [
+  { q: "Is Level 3 live or self-paced?", a: "Live. You meet twice a week, Tuesdays and Thursdays, 6:30-8:30 PM EST, in our Discord. Sessions are recorded for enrolled students in case you miss one." },
+  { q: "Do I need a team?", a: "No. Bring your own team of any size, come solo, or let us form a team for you at the Sorting Ceremony in week one. Teams run from 1 to 7 people." },
+  { q: "What level do I need to be?", a: "You should have finished a few small projects or game jams in any discipline: programming, art, design, writing, audio, production or marketing. If you're brand new, start with Level 1 (free)." },
+  { q: "How much time does it take?", a: "Two 2-hour live classes a week, plus the time your team spends building." },
+  { q: "How do scholarships work?", a: `Scholarships are a lottery: apply, and if you're drawn you pay ${l3.scholarshipPrice} (60% off) instead of ${l3.price}.` },
+  { q: "Will Level 3 get me a job?", a: "We don't promise jobs or placements. We help you ship a game, build a team and learn to run a studio. Graduates have gone on to found studios and earn game credits." },
+  { q: "What happens after Level 3?", a: "Your game is out on itch.io and you've pitched it to publishers at Pitch Night. The most promising games can continue with the Indie Game Foundry, our publishing arm." },
+  { q: "What tools and engine do we use?", a: "Any engine your team knows: the curriculum is engine-agnostic. Classes cover design, production, business, marketing and pitching, not one tool." },
+];
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+};
+const courseSchema = {
+  "@context": "https://schema.org",
+  "@type": "Course",
+  name: "Level 3: Publish",
+  description: "An 8-week live online game development bootcamp: build and launch an original game with a team and pitch it to publishers.",
+  provider: { "@type": "Organization", name: "Indie Game Academy", sameAs: "https://indiegameacademy.com" },
+  offers: { "@type": "Offer", price: "999", priceCurrency: "USD", category: "Paid" },
+  hasCourseInstance: { "@type": "CourseInstance", courseMode: "Online", courseWorkload: "PT4H/week" },
+};
+const sessions = [
+  "Team formation and the Sorting Ceremony", "Market opportunities and prototyping", "Game design fundamentals", "Project management",
+  "Data and metrics", "Business and budgeting", "Go-to-market", "Social media marketing",
+  "Founding and funding", "How to pitch your game", "Live service planning", "Final pitch",
+];
+const profs = professors.filter((p) => ["renee-gittins", "sybil-collas", "christina-marie-drake", "viktor-blanke-2"].includes(p.slug));
+---
+<Base title="Level 3: Publish — launch a game with a team in 8 weeks" description="Live, online game dev bootcamp: in 8 weeks build an original game with a team, launch it on itch.io and pitch it to publishers at Pitch Night. $999, scholarships available." crumbs={[{ label: "Programs", href: "/programs/" }, { label: "Level 3: Publish" }]} schema={[courseSchema, faqSchema]}>
+  <section class="page-hero page-hero--banners">
+    <div class="wrap">
+      <span class="kicker" style="color:var(--white)">Level 3: Publish</span>
+      <h1>Launch an original game with a team in 8 weeks</h1>
+      <p class="lead">Spend two months live with a squad of veteran professors. Ideate, build and launch a game on itch.io, then pitch it to publishers at Pitch Night. Of the 42 games made in past Level 3 cohorts, 40 launched.</p>
+      <div class="row">
+        <a class="iga-btn iga-btn--primary" href={l3.cta.href}>{l3.cta.label}</a>
+        <a class="iga-btn iga-btn--ghost" href={links.consultation}>Book a free 30-minute chat</a>
+      </div>
+      {l3.earlyBird && <p class="caption" style="color:var(--white);margin-top:var(--space-4)">{l3.earlyBird}</p>}
+      <dl class="facts">
+        <div><dt>Next cohort</dt><dd>{l3.next || "Dates coming soon"}</dd></div>
+        <div><dt>Length</dt><dd>8 weeks, 16 live classes</dd></div>
+        <div><dt>Schedule</dt><dd>{l3.schedule}</dd></div>
+        <div><dt>Where</dt><dd>Online, in our Discord</dd></div>
+        <div><dt>Price</dt><dd>{l3.price} · {l3.scholarshipPrice} with a scholarship</dd></div>
+        <div><dt>You leave with</dt><dd>A launched game and a pitch</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">What you'll have at the end</span>
+        <h2>Real things, not just a certificate</h2>
+      </div>
+      <div class="grid grid--4">
+        <div class="card"><h3>A launched game</h3><p>Your team's original game, released on itch.io in week 8.</p></div>
+        <div class="card"><h3>A pitch</h3><p>A publisher-ready pitch, built with the professors and practiced in class.</p></div>
+        <div class="card"><h3>Pitch Night</h3><p>You pitch live to publishers, press and industry judges. One game takes Most Viable Game.</p></div>
+        <div class="card"><h3>A team and a network</h3><p>Teammates, professors and a Discord of devs from six continents. Plus the Level 3 certificate for LinkedIn.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker" style="color:var(--white)">The 8 weeks</span>
+        <h2 style="text-shadow:0 3px 0 var(--night-navy)">Prototype to launch, two weeks at a time</h2>
+        <p>Each phase ends with a build, and all along your House competes for the House Cup.</p>
+      </div>
+      <ol class="timeline">
+        <li><span class="weeks">Weeks 1-2</span><h3>Pre-production</h3><p>Sorting Ceremony into Houses, form your team, pick a concept and build a playable prototype.</p></li>
+        <li><span class="weeks">Weeks 3-4</span><h3>Alpha</h3><p>Get the core loop in and playtest it. Plan scope, budget and production.</p></li>
+        <li><span class="weeks">Weeks 5-6</span><h3>Beta</h3><p>Content and polish, plus your go-to-market plan.</p></li>
+        <li><span class="weeks">Weeks 7-8</span><h3>Launch</h3><p>Release on itch.io, final pitch and Pitch Night.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split" style="align-items:start">
+      <div>
+        <span class="kicker">The classes</span>
+        <h2>Learn the studio, not just the engine</h2>
+        <p class="lead">Sixteen live sessions on what it takes to run an indie studio, taught by people who've done it. Classes are about getting the reps: you apply each one to your own game that week.</p>
+        <ul class="checks">{sessions.map((s) => <li>{s}</li>)}</ul>
+      </div>
+      <div class="stack">
+        <h3 style="color:var(--headline)">Taught by industry veterans</h3>
+        <p class="muted">Led by headmaster Willem Delventhal (10+ years in games: Paradox, Meta, IMVU) with guest professors. Past professors include:</p>
+        {profs.map((p) => (
+          <div class="prof">
+            {p.image ? <img src={p.image} alt={p.name} loading="lazy" width="88" height="88" /> : <span></span>}
+            <div><h3>{p.name}</h3><p>{p.bio}</p></div>
+          </div>
+        ))}
+        <a href="/about/professors/">Meet all our professors</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--card">
+    <div class="wrap grid grid--2">
+      <div>
+        <h2>Level 3 is for you if...</h2>
+        <ul class="checks">
+          <li>You've made a few small projects or game jams and want the indie studio experience.</li>
+          <li>You want to found a studio, not wait to be hired.</li>
+          <li>You learn best live, with deadlines and a team that counts on you.</li>
+          <li>You finished Level 2 and want to go further.</li>
+        </ul>
+      </div>
+      <div>
+        <h2>It's not for you if...</h2>
+        <ul class="checks crosses">
+          <li>You want a recorded course to watch at your own pace.</li>
+          <li>You're looking for a job guarantee. We don't offer one.</li>
+          <li>You've never made a game. Start with <a href="/programs/level-1/">Level 1</a>, it's free.</li>
+          <li>You can't make two evening classes a week (EST) for 8 weeks.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">How it compares</span>
+        <h2>Why a live 8-week program?</h2>
+        <p>There are good ways to learn game dev. Here's how the common formats differ, so you can pick the right one.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th></th><th>Recorded course library</th><th>Year-long career program</th><th>Business-only bootcamp</th><th class="us">IGA Level 3</th></tr></thead>
+          <tbody>
+            <tr><th>Format</th><td>Videos, sometimes live calls</td><td>Live classes or 1:1 mentoring</td><td>Live classes</td><td class="us">Live classes + team production</td></tr>
+            <tr><th>Length</th><td>Any</td><td>9-12 months or more</td><td>About 8 weeks</td><td class="us">8 weeks</td></tr>
+            <tr><th>You leave with</th><td>Skills, a prototype</td><td>A portfolio, career support</td><td>A pitch deck</td><td class="us">A launched team game and a pitch</td></tr>
+            <tr><th>Publisher pitch</th><td>Rarely</td><td>Sometimes (to employers)</td><td>Practice</td><td class="us">Pitch Night with publishers</td></tr>
+            <tr><th>Best for</th><td>Learning one engine cheaply, alone</td><td>A structured route toward a studio job</td><td>Teams that already have a game</td><td class="us">Devs who want to ship and found a studio</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--card">
+    <div class="wrap">
+      <div class="section-head"><span class="kicker">Made in Level 3</span><h2>Games our students launched</h2></div>
+      <div class="grid grid--3">{showcase.map((g) => <GameCard game={g} />)}</div>
+      <div class="grid grid--2 mt-8">
+        {testimonials.slice(0, 2).map((t) => <figure class="quote"><blockquote>"{t.quote}"</blockquote><figcaption><b>{t.name}</b>{t.role}</figcaption></figure>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap" style="max-width:860px">
+      <h2>Questions</h2>
+      <div class="faq">
+        {faqs.map((f) => <details><summary>{f.q}</summary><div><p>{f.a}</p></div></details>)}
+      </div>
+      <p class="mt-8">More answers in the <a href="/faq/">FAQ</a>, or write to <a href="mailto:team@indiegameacademy.com">team@indiegameacademy.com</a>.</p>
+    </div>
+  </section>
+
+  <CtaBand title="Launch a dang game." text={`Level 3 is ${l3.price} for 8 weeks, with scholarships at ${l3.scholarshipPrice}. ${l3.next || "Apply now and we'll confirm the next start date."}`} primary={{ label: "Apply to Level 3", href: l3.cta.href }} secondary={{ label: "Book a free chat", href: links.consultation }} />
+</Base>

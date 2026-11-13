@@ -1,0 +1,40 @@
+---
+import Base from "../layouts/Base.astro";
+import CtaBand from "../components/CtaBand.astro";
+import { links } from "../config";
+// Recurring events. One-off dates go in the newsletter and Discord; add a card here when a date is confirmed.
+const recurring = [
+  { kicker: "Every Wednesday", title: "Indie Game Lunch Hour", meta: "Guest talks with devs and industry people. <b>12 PM EST</b>, in the IGA Discord, recorded for YouTube.", cta: { label: "Join the Discord", href: links.discord } },
+  { kicker: "Level 3 finale", title: "Pitch Night", meta: "Level 3 teams pitch their launched games to publishers, press and industry judges. One game takes <b>Most Viable Game</b>. Live in the IGA Discord.", cta: { label: "Join the Discord", href: links.discord } },
+  { kicker: "Free", title: "Free classes", meta: "Live classes with our professors, like rapid prototyping or building a 3D platformer in Unreal. Online and free.", cta: { label: "Get the free class", href: "/free-class/" } },
+  { kicker: "Community", title: "Digital Showcases and Megajams", meta: "Show what you're building, playtest each other's games, and jam with the community.", cta: { label: "Get event emails", href: links.newsletter } },
+  { kicker: "Podcast", title: "Indie Game Guildhall", meta: "Willem, the Wizard of Games, and Tim Wood, the Knight of Games Recruitment, talk indie games and the industry.", cta: { label: "Watch on YouTube", href: links.youtube } },
+  { kicker: "Every March", title: "IGA Meetup at GDC", meta: "Our yearly community meetup during the Game Developers Conference in San Francisco.", cta: { label: "Read about the 2026 meetup", href: "/3rd-annual-indie-game-academy-meetup-gdc/" } },
+];
+---
+<Base title="Events: Pitch Night, free classes and the Lunch Hour" description="Indie Game Academy events: the weekly Indie Game Lunch Hour, Pitch Night, free live classes, showcases, jams and our GDC meetup." crumbs={[{ label: "Events" }]}>
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="kicker">Events</span>
+      <h1>Come hang out with the community</h1>
+      <p class="lead">Most of what we do happens live in our Discord. Here's what runs every week, every cohort and every year. Dates and times are always in EST.</p>
+      <div class="row">
+        <a class="iga-btn iga-btn--primary" href={links.discord}>Join the Discord</a>
+        <a class="iga-btn iga-btn--ghost" href={links.newsletter}>Get event emails</a>
+      </div>
+    </div>
+  </section>
+  <section class="section--tight">
+    <div class="wrap grid grid--3">
+      {recurring.map((e) => (
+        <article class="iga-event">
+          <span class="iga-event__kicker">{e.kicker}</span>
+          <h2 class="iga-event__title">{e.title}</h2>
+          <p class="iga-event__meta" set:html={e.meta} />
+          <div class="iga-event__row"><a class="iga-btn iga-btn--primary iga-btn--small" href={e.cta.href}>{e.cta.label}</a></div>
+        </article>
+      ))}
+    </div>
+  </section>
+  <CtaBand />
+</Base>

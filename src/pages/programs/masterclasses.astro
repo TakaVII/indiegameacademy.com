@@ -1,0 +1,30 @@
+---
+import Base from "../../layouts/Base.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import { links } from "../../config";
+const topics = [
+  { t: "Game design" },
+  { t: "Visual design" },
+  { t: "Legal for game devs" },
+  { t: "The joys of marketing an indie game" },
+  { t: "The nuts and bolts of Kickstarter" },
+];
+---
+<Base title="Live masterclasses for indie game devs" description="Four-hour live masterclasses with industry veterans on game design, visual design, legal, marketing and Kickstarter, with Q&A." crumbs={[{ label: "Programs", href: "/programs/" }, { label: "Masterclasses" }]}>
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="kicker">Live masterclass series</span>
+      <h1>Four hours, one topic, a veteran who's done it</h1>
+      <p class="lead">Our masterclasses are live, four-hour deep dives with industry professionals, with time for your questions. For devs of all levels and for aspiring studio founders who need one skill, fast.</p>
+      <a class="iga-btn iga-btn--primary" href={links.newsletter}>Get notified about the next one</a>
+    </div>
+  </section>
+  <section class="section--tight">
+    <div class="wrap">
+      <h2>Topics we've run</h2>
+      <div class="grid grid--3">{topics.map((x) => <div class="card"><h3>{x.t}</h3></div>)}</div>
+      <p class="mt-8 muted">Dates are announced in our newsletter and Discord. Want a topic? Tell us at <a href="mailto:team@indiegameacademy.com">team@indiegameacademy.com</a>.</p>
+    </div>
+  </section>
+  <CtaBand />
+</Base>

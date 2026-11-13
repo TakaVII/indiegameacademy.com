@@ -1,0 +1,51 @@
+---
+// Blog posts live at the site root (/{slug}/), exactly where WordPress had them, so search rankings and links keep working.
+import Base from "../layouts/Base.astro";
+import posts from "../data/posts.json";
+import { links } from "../config";
+
+export function getStaticPaths() {
+  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+const { post } = Astro.props;
+const date = new Date(post.date).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+const related = posts.filter((p) => p.slug !== post.slug).slice(0, 2);
+const isGdd = post.slug === "free-game-design-document-template-how-to-guide";
+const schema = {
+  "@context": "https://schema.org", "@type": "BlogPosting", headline: post.title, description: post.description,
+  datePublished: post.date, dateModified: post.modified, mainEntityOfPage: `https://indiegameacademy.com/${post.slug}/`,
+  ...(post.image ? { image: `https://indiegameacademy.com${post.image}` } : {}),
+  author: { "@type": "Organization", name: "Indie Game Academy" },
+  publisher: { "@type": "Organization", name: "Indie Game Academy", logo: { "@type": "ImageObject", url: "https://indiegameacademy.com/brand/iga-crest.png" } },
+};
+---
+<Base title={post.title} description={post.description} image={post.image ?? undefined} type="article" crumbs={[{ label: "Blog", href: "/blog/" }, { label: post.title }]} schema={schema}>
+  <article class="section--tight">
+    <div class="wrap">
+      <header style="max-width:820px;margin-bottom:var(--space-8)">
+        <span class="kicker"><time datetime={post.date}>{date}</time></span>
+        <h1 style="font-size:clamp(32px,5vw,52px)" set:html={post.title} />
+      </header>
+      {post.image && <img src={post.image} alt="" style="border-radius:var(--radius-md);max-width:820px;width:100%;margin-bottom:var(--space-8)" />}
+      {isGdd && (
+        <aside class="notice" style="max-width:720px;margin-bottom:var(--space-8)">
+          <b>Want help filling it in?</b> In our free <a href="/programs/level-1/">Level 1</a> weekend you write a game pitch with a team, and the <a href={links.rdsGdd}>Ready Dev Start blueprints</a> have more studio templates.
+        </aside>
+      )}
+      <div class="prose" set:html={post.html} />
+      <aside class="card" style="max-width:720px;margin-top:var(--space-12)">
+        <span class="kicker">Next step</span>
+        <h3>Learn this live, for free</h3>
+        <p>Join a free class with our professors and meet thousands of devs in our Discord. When you're ready, Level 3 takes you from idea to a launched game with a team.</p>
+        <div class="card__foot row">
+          <a class="iga-btn iga-btn--primary iga-btn--small" href="/free-class/">Get the free class</a>
+          <a class="iga-btn iga-btn--ghost iga-btn--small" href="/programs/level-3/">See Level 3</a>
+        </div>
+      </aside>
+      <nav style="max-width:720px;margin-top:var(--space-8)" aria-label="More posts">
+        <h2 style="font-size:24px">Keep reading</h2>
+        <ul class="checks">{related.map((p) => <li><a href={`/${p.slug}/`} set:html={p.title} /></li>)}</ul>
+      </nav>
+    </div>
+  </article>
+</Base>

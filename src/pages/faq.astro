@@ -1,0 +1,50 @@
+---
+import Base from "../layouts/Base.astro";
+import CtaBand from "../components/CtaBand.astro";
+import { programs } from "../config";
+const groups = [
+  {
+    title: "Programs",
+    items: [
+      { q: "Which program should I start with?", a: "New to game dev: Level 1 (free). Want solo technical skills: Level 2. Have a few small projects or jams and want to launch a game with a team: Level 3. Not sure? <a href='/programs/'>Compare the programs</a> or book a free chat." },
+      { q: "Are classes live or recorded?", a: "Live. Our core classes happen live in our Discord, taught by industry professionals. Enrolled students can rewatch sessions they miss." },
+      { q: "What time are classes?", a: `All times are in EST. Level 3 meets ${programs.level3.schedule}.` },
+      { q: "How much do the programs cost?", a: `Level 1 is free. Level 2 is ${programs.level2.price}. Level 3 is ${programs.level3.price}, or ${programs.level3.scholarshipPrice} if you're drawn in the scholarship lottery.` },
+      { q: "Will this get me a job?", a: "We don't promise jobs or placements. We help you ship games, build a team and learn how to run an indie studio. Many graduates have earned game credits and some have founded studios." },
+    ],
+  },
+  {
+    title: "Accessibility",
+    items: [
+      { q: "Do you offer auxiliary aids and services?", a: "Yes. We use Gather, Discord and Google Meet; each has its own accessibility settings. For closed captions: on Windows 11, turn on Live Captions in Settings; on macOS, turn on subtitles and captions in System Settings; in Chrome, turn on Live Caption; in Google Meet, click CC in the meeting toolbar. Need something else? Write to us and we'll work it out." },
+    ],
+  },
+  {
+    title: "Community",
+    items: [
+      { q: "Is the Discord free?", a: "Yes. Anyone can join, ask questions, find teammates and come to live events." },
+      { q: "I feel unsafe or saw something wrong. Who do I tell?", a: "Write to team@indiegameacademy.com. Community safety comes before anything else." },
+    ],
+  },
+];
+const schema = {
+  "@context": "https://schema.org", "@type": "FAQPage",
+  mainEntity: groups.flatMap((g) => g.items).map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a.replace(/<[^>]+>/g, "") } })),
+};
+---
+<Base title="FAQ" description="Answers about Indie Game Academy programs, prices, live classes, schedules, accessibility and our community." crumbs={[{ label: "FAQ" }]} schema={schema}>
+  <section class="page-hero">
+    <div class="wrap"><span class="kicker">FAQ</span><h1>Questions, answered</h1><p class="lead">Can't find yours? Write to <a href="mailto:team@indiegameacademy.com">team@indiegameacademy.com</a>.</p></div>
+  </section>
+  <section class="section--tight" style="padding-bottom:var(--space-16)">
+    <div class="wrap" style="max-width:860px">
+      {groups.map((g) => (
+        <div style="margin-bottom:var(--space-12)">
+          <h2>{g.title}</h2>
+          <div class="faq">{g.items.map((f) => <details><summary>{f.q}</summary><div><p set:html={f.a} /></div></details>)}</div>
+        </div>
+      ))}
+    </div>
+  </section>
+  <CtaBand />
+</Base>

@@ -1,0 +1,38 @@
+---
+import Base from "../../layouts/Base.astro";
+import GameCard from "../../components/GameCard.astro";
+import games from "../../data/games.json";
+
+export function getStaticPaths() {
+  return games.map((game) => ({ params: { slug: game.slug }, props: { game } }));
+}
+const { game } = Astro.props;
+const more = games.filter((g) => g.slug !== game.slug && g.image && g.genres.some((x) => game.genres.includes(x))).slice(0, 3);
+const fallback = games.filter((g) => g.slug !== game.slug && g.image).slice(0, 3);
+const related = more.length ? more : fallback;
+const schema = {
+  "@context": "https://schema.org", "@type": "VideoGame", name: game.title, description: game.summary,
+  genre: game.genres, ...(game.image ? { image: `https://indiegameacademy.com${game.image}` } : {}),
+  publisher: { "@type": "Organization", name: "Indie Game Academy student team" },
+};
+---
+<Base title={`${game.title} — student game`} description={game.summary || `${game.title}, a game made by Indie Game Academy students.`} image={game.image ?? undefined} crumbs={[{ label: "Student games", href: "/games/" }, { label: game.title }]} schema={schema}>
+  <section class="page-hero">
+    <div class="wrap split" style="align-items:start">
+      <div>
+        <span class="kicker">{game.genres.join(" · ") || "Student game"}</span>
+        <h1>{game.title}</h1>
+        <div class="prose" set:html={game.html} />
+        {game.play && <p><a class="iga-btn iga-btn--primary" href={game.play}>Play it</a></p>}
+      </div>
+      {game.image && <img src={game.image} alt={`${game.title} key art`} style="border-radius:var(--radius-md)" />}
+    </div>
+  </section>
+  <section class="section section--card">
+    <div class="wrap">
+      <p class="lead">Made by an Indie Game Academy student team. Want to launch yours? <a href="/programs/level-3/">See Level 3: Publish</a>.</p>
+      <h2 class="mt-8">More student games</h2>
+      <div class="grid grid--3">{related.map((g) => <GameCard game={g} />)}</div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,23 @@
+---
+// The closing band on most pages: one primary ask, one lower-stakes ask.
+import { links } from "../config";
+interface Props { title?: string; text?: string; primary?: { label: string; href: string }; secondary?: { label: string; href: string } }
+const {
+  title = "Ready to launch a game?",
+  text = "Start free with a class and the Discord, or apply to Level 3 and ship a game with a team in eight weeks.",
+  primary = { label: "Apply to Level 3", href: "/programs/level-3/" },
+  secondary = { label: "Join the Discord", href: links.discord },
+} = Astro.props;
+---
+<section class="section section--banners center">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 style="text-shadow: 0 3px 0 var(--night-navy)">{title}</h2>
+      <p>{text}</p>
+    </div>
+    <div class="row" style="justify-content:center">
+      <a class="iga-btn iga-btn--primary" href={primary.href}>{primary.label}</a>
+      <a class="iga-btn iga-btn--secondary" href={secondary.href}>{secondary.label}</a>
+    </div>
+  </div>
+</section>

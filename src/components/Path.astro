@@ -1,0 +1,21 @@
+---
+// The IGA path: free class to Foundry (and the Gauntlet once announced).
+import { programs, gauntlet } from "../config";
+const steps = [
+  { label: "Free class", href: "/free-class/", price: "Free", text: "A live class and the Discord community." },
+  { label: programs.level1.name, href: "/programs/level-1/", price: programs.level1.price, text: "A weekend to make your first game." },
+  { label: programs.level2.name, href: "/programs/level-2/", price: programs.level2.price, text: "A month on the full solo pipeline." },
+  { label: programs.level3.name, href: "/programs/level-3/", price: programs.level3.price, text: "Eight weeks, a team, a launched game, Pitch Night." },
+  { label: "Indie Game Foundry", href: "/foundry/", price: "Publishing", text: "Our publishing arm for the most promising games." },
+];
+if (gauntlet.public) steps.push({ label: "The Gauntlet", href: gauntlet.url, price: "2027", text: "Get discovered and funded, live." });
+---
+<ol class="path">
+  {steps.map((s) => (
+    <li>
+      <a href={s.href}>{s.label}</a>
+      <span class="price">{s.price}</span>
+      <p>{s.text}</p>
+    </li>
+  ))}
+</ol>

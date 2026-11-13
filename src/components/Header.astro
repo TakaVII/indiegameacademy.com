@@ -1,0 +1,94 @@
+---
+import { nav, programs, gauntlet } from "../config";
+const path = Astro.url.pathname;
+const items = gauntlet.public
+  ? [...nav.slice(0, 5), { label: "Gauntlet", href: gauntlet.url, external: true }, ...nav.slice(5)]
+  : nav;
+const isActive = (href: string) => href !== "/" && path.startsWith(href);
+---
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="brand" href="/" aria-label="Indie Game Academy home">
+      <img src="/brand/iga-crest-256.png" alt="Indie Game Academy crest" width="64" height="64" />
+      <span>Indie Game<br />Academy</span>
+    </a>
+    <nav class="menu" id="site-menu" aria-label="Main">
+      <ul>
+        {items.map((item: any) => (
+          <li class={item.children ? "has-sub" : ""}>
+            {item.children ? (
+              <>
+                <button type="button" class:list={["top", { active: isActive(item.href) }]} aria-expanded="false">{item.label}</button>
+                <ul class="sub">
+                  {item.children.map((c: any) => (
+                    <li><a href={c.href} {...(c.external ? { target: "_blank", rel: "noopener" } : {})}>{c.label}{c.external && <span aria-hidden="true"> ↗</span>}</a></li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <a class:list={["top", { active: isActive(item.href) }]} href={item.href} {...(item.external ? { target: "_blank", rel: "noopener" } : {})}>{item.label}</a>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <div class="actions">
+      <a class="iga-btn iga-btn--primary iga-btn--small" href="/programs/level-3/">Apply to Level 3</a>
+      <button class="burger" type="button" aria-controls="site-menu" aria-expanded="false"><span class="visually-hidden">Menu</span><i></i><i></i><i></i></button>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header { position: sticky; top: 0; z-index: 50; background: var(--night-navy); border-bottom: 1px solid rgba(226, 220, 248, 0.12); }
+  .bar { display: flex; align-items: center; gap: var(--space-4); min-height: 76px; }
+  .brand { display: flex; align-items: center; gap: var(--space-2); text-decoration: none; color: var(--ink); font-family: var(--font-display); font-size: 14px; line-height: 1.05; flex-shrink: 0; }
+  .brand img { width: 64px; height: 64px; }
+  .menu { margin-left: auto; }
+  .menu > ul { display: flex; gap: var(--space-1); list-style: none; margin: 0; padding: 0; }
+  .top { font: 600 15px/1 var(--font-body); color: var(--ink); background: none; border: 0; padding: var(--space-3); border-radius: var(--radius-sm); cursor: pointer; text-decoration: none; display: block; white-space: nowrap; }
+  .top:hover, .top.active { color: var(--headline); }
+  .has-sub { position: relative; }
+  .has-sub > .top::after { content: "▾"; margin-left: 6px; font-size: 11px; }
+  .sub { display: none; position: absolute; top: 100%; left: 0; min-width: 240px; list-style: none; margin: 0; padding: var(--space-2); background: var(--card-navy); border-radius: var(--radius-md); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35); }
+  .sub a { display: block; padding: var(--space-2) var(--space-3); color: var(--ink); text-decoration: none; border-radius: var(--radius-sm); font-size: 15px; }
+  .sub a:hover { background: var(--night-navy); color: var(--headline); }
+  .has-sub:hover .sub, .has-sub:focus-within .sub, .has-sub.open .sub { display: block; }
+  .actions { display: flex; align-items: center; gap: var(--space-2); }
+  .burger { display: none; width: 46px; height: 46px; border-radius: var(--radius-sm); border: 2px solid var(--ink); background: none; padding: 10px 9px; cursor: pointer; flex-direction: column; justify-content: space-between; }
+  .burger i { display: block; height: 3px; background: var(--ink); border-radius: 2px; }
+  @media (max-width: 1080px) {
+    .burger { display: flex; }
+    .menu { display: none; position: fixed; inset: 76px 0 0 0; background: var(--night-navy); overflow-y: auto; padding: var(--space-4); margin: 0; }
+    .menu.open { display: block; }
+    .menu > ul { flex-direction: column; gap: 0; }
+    .top { font-size: 19px; padding: var(--space-4) var(--space-2); width: 100%; text-align: left; }
+    .sub { position: static; display: block; box-shadow: none; background: transparent; padding: 0 0 var(--space-3) var(--space-3); }
+    .has-sub > .top::after { content: ""; }
+    .actions { margin-left: auto; }
+  }
+  @media (max-width: 420px) {
+    .brand span { display: none; }
+    .actions .iga-btn { font-size: 12px; padding: var(--space-2) var(--space-3); }
+  }
+</style>
+
+<script>
+  const burger = document.querySelector<HTMLButtonElement>(".burger");
+  const menu = document.getElementById("site-menu");
+  burger?.addEventListener("click", () => {
+    const open = menu?.classList.toggle("open") ?? false;
+    burger.setAttribute("aria-expanded", String(open));
+    document.body.style.overflow = open ? "hidden" : "";
+  });
+  document.querySelectorAll<HTMLButtonElement>(".has-sub > .top").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const li = btn.parentElement!;
+      const open = li.classList.toggle("open");
+      btn.setAttribute("aria-expanded", String(open));
+    });
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") document.querySelectorAll(".has-sub.open").forEach((li) => li.classList.remove("open"));
+  });
+</script>

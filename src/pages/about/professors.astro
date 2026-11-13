@@ -1,0 +1,25 @@
+---
+import Base from "../../layouts/Base.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import professors from "../../data/professors.json";
+---
+<Base title="Our professors" description="Indie Game Academy professors are industry veterans: creative directors, art directors, producers, recruiters and marketers from studios like Mojang, Paradox and EA DICE." crumbs={[{ label: "About", href: "/about/" }, { label: "Professors" }]}>
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="kicker">Professors</span>
+      <h1>Learn from people who ship games</h1>
+      <p class="lead">Our headmaster, Willem Delventhal, leads most classes. Guest professors bring their discipline: design, art, narrative, production, recruiting, marketing and publishing.</p>
+    </div>
+  </section>
+  <section class="section--tight" style="padding-bottom:var(--space-16)">
+    <div class="wrap grid grid--2">
+      {professors.map((p) => (
+        <div class="card prof" id={p.slug}>
+          {p.image ? <img src={p.image} alt={p.name} loading="lazy" width="88" height="88" /> : <span></span>}
+          <div><h3>{p.name}</h3><p>{p.bio}</p></div>
+        </div>
+      ))}
+    </div>
+  </section>
+  <CtaBand />
+</Base>

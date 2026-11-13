@@ -1,0 +1,73 @@
+---
+import Base from "../layouts/Base.astro";
+import CtaBand from "../components/CtaBand.astro";
+import { links, gauntlet } from "../config";
+import { foundryGames } from "../data/foundry";
+---
+<Base title="Indie Game Foundry: our publishing arm" description="The Indie Game Foundry is Indie Game Academy's publishing arm: it helps the most promising games from our community reach Steam. Wishlist Cohort 0." crumbs={[{ label: "Foundry" }]}>
+  <section class="page-hero">
+    <div class="wrap split">
+      <div>
+        <span class="kicker">Indie Game Foundry, by IGA</span>
+        <h1>From student game to Steam</h1>
+        <p class="lead">The Indie Game Foundry is our publishing arm. It takes the most promising games from our community and helps them reach players on Steam. Indies together rise.</p>
+        <div class="row">
+          <a class="iga-btn iga-btn--primary" href={links.steamFoundry}>Follow us on Steam</a>
+          <a class="iga-btn iga-btn--secondary" href={links.discord}>Join the Discord</a>
+        </div>
+      </div>
+      <div class="foundry-logos">
+        <img src="/brand/indie-game-foundry-logo.png" alt="Indie Game Foundry logo" width="270" height="291" />
+        <img src="/brand/iga-crest-256.png" alt="Indie Game Academy crest" width="270" height="270" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--card">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Cohort 0</span>
+        <h2>Wishlist our first games</h2>
+        <p>Wishlists tell Steam a game is worth showing. One click helps these teams more than you'd think.</p>
+      </div>
+      <div class="grid grid--3">
+        {foundryGames.map((g) => (
+          <article class="card">
+            <span class="kicker">{g.studio}</span>
+            <h3>{g.title}</h3>
+            <p>{g.pitch}</p>
+            <div class="card__foot"><a class="iga-btn iga-btn--primary iga-btn--small" href={g.steam}>Wishlist on Steam</a></div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap grid grid--2">
+      <div>
+        <h2>How games get to the Foundry</h2>
+        <ol class="checks">
+          <li>Build and launch a game with your team in <a href="/programs/level-3/">Level 3</a>.</li>
+          <li>Pitch it at Pitch Night, where publishers and industry judges see it.</li>
+          <li>The most promising games are invited to keep going with the Foundry toward a Steam release.</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3>Publishers, partners and sponsors</h3>
+        <p>Want to see our teams' games, judge a Pitch Night or partner with the Foundry? We'd love to talk.</p>
+        <div class="card__foot"><a class="iga-btn iga-btn--ghost" href="mailto:team@indiegameacademy.com">team@indiegameacademy.com</a></div>
+      </div>
+    </div>
+  </section>
+
+  {gauntlet.public && (
+    <section class="section section--alt"><div class="wrap"><h2>Next: the Indie Game Gauntlet</h2><p class="lead">Get discovered and funded, live.</p><a class="iga-btn iga-btn--primary" href={gauntlet.url}>Enter the Gauntlet</a></div></section>
+  )}
+
+  <CtaBand />
+</Base>
+<style>
+  .foundry-logos { display: flex; gap: var(--space-8); align-items: center; justify-content: center; }
+  .foundry-logos img { width: 45%; max-width: 220px; height: auto; }
+</style>

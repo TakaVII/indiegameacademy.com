@@ -1,0 +1,29 @@
+---
+import Base from "../../layouts/Base.astro";
+import posts from "../../data/posts.json";
+const sorted = [...posts].sort((a, b) => b.date.localeCompare(a.date));
+const fmt = (d: string) => new Date(d).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+---
+<Base title="Blog: game design, indie studios and breaking in" description="Guides and stories from Indie Game Academy: game design documents, prototyping, narrative, marketing your indie game and running an indie studio." crumbs={[{ label: "Learn", href: "/learn/" }, { label: "Blog" }]}>
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="kicker">Blog</span>
+      <h1>Guides for indie devs</h1>
+      <p class="lead">Templates, how-tos and stories from our classes and community. Start with the most-read one: the <a href="/free-game-design-document-template-how-to-guide/">free game design document template</a>.</p>
+    </div>
+  </section>
+  <section class="section--tight" style="padding-bottom:var(--space-16)">
+    <div class="wrap grid grid--3">
+      {sorted.map((p) => (
+        <a class="game-card" href={`/${p.slug}/`}>
+          {p.image ? <img src={p.image} alt="" loading="lazy" width="480" height="270" /> : <img src="/brand/house-banners.jpg" alt="" loading="lazy" width="480" height="270" />}
+          <div class="game-card__body">
+            <span class="game-card__genres">{fmt(p.date)}</span>
+            <span class="game-card__title" set:html={p.title} />
+            <span class="muted" style="font-size:14px">{p.description}</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,70 @@
+---
+import Base from "../../layouts/Base.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import { programs, links } from "../../config";
+const l1 = programs.level1;
+const faqs = [
+  { q: "Is Level 1 really free?", a: "Yes. Level 1 is free, and it's staying that way." },
+  { q: "Do I need experience?", a: "No. Level 1 is built for total beginners, career changers and hobbyists." },
+  { q: "What will we build?", a: "A small game, start to finish. The game and the engine change every cohort: recent weekends covered a 3D platformer in Unreal and a 2D platformer in Unity." },
+  { q: "Where does it happen?", a: "Live and online, in the IGA Discord, over one weekend." },
+];
+const courseSchema = {
+  "@context": "https://schema.org", "@type": "Course", name: "Level 1: Embark",
+  description: "A free weekend game development bootcamp for beginners, taught live online by industry professionals.",
+  provider: { "@type": "Organization", name: "Indie Game Academy", sameAs: "https://indiegameacademy.com" },
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD", category: "Free" },
+};
+---
+<Base title="Level 1: Embark — free weekend game dev bootcamp" description="Level 1 is a free, live weekend bootcamp for beginners: make your first game and get a taste of design, production, art and narrative with industry professionals." crumbs={[{ label: "Programs", href: "/programs/" }, { label: "Level 1: Embark" }]} schema={courseSchema}>
+  <section class="page-hero page-hero--banners">
+    <div class="wrap">
+      <span class="kicker" style="color:var(--white)">Level 1: Embark · Free</span>
+      <h1>Make your first game in a weekend</h1>
+      <p class="lead">Ever dreamt of making your own game but don't know where to begin? Level 1 is a free, live weekend bootcamp. You'll build a small game with classmates and get a taste of the whole game development pie.</p>
+      <div class="row">
+        <a class="iga-btn iga-btn--primary" href={l1.cta.href}>{l1.cta.label}</a>
+        <a class="iga-btn iga-btn--secondary" href={links.discord}>Join the Discord</a>
+      </div>
+      <dl class="facts">
+        <div><dt>Next weekend</dt><dd>{l1.next || "Coming soon: get notified"}</dd></div>
+        <div><dt>Length</dt><dd>One weekend of live lessons</dd></div>
+        <div><dt>Where</dt><dd>Online, in our Discord</dd></div>
+        <div><dt>Price</dt><dd>Free</dd></div>
+        <div><dt>Experience</dt><dd>None needed</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap grid grid--2">
+      <div>
+        <h2>What you'll learn</h2>
+        <ul class="checks">
+          <li>Game development basics in a real engine (it changes every cohort)</li>
+          <li>Game design: how to turn an idea into rules people can play</li>
+          <li>Project management for a small team</li>
+          <li>Visual and narrative design fundamentals</li>
+          <li>Networking and how to present your work</li>
+        </ul>
+      </div>
+      <div>
+        <h2>Perfect for</h2>
+        <ul class="checks">
+          <li><b>Beginners.</b> No prior experience required.</li>
+          <li><b>Career changers.</b> Coming from another field? Get a head start with industry veterans.</li>
+          <li><b>Hobbyists.</b> Turn your love of games into something you make.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--card">
+    <div class="wrap" style="max-width:860px">
+      <h2>Questions</h2>
+      <div class="faq">{faqs.map((f) => <details><summary>{f.q}</summary><div><p>{f.a}</p></div></details>)}</div>
+    </div>
+  </section>
+
+  <CtaBand title="Ready for the next step?" text="After Level 1, go solo in Level 2 or join a team in Level 3." primary={{ label: "See Level 2", href: "/programs/level-2/" }} secondary={{ label: "See Level 3", href: "/programs/level-3/" }} />
+</Base>

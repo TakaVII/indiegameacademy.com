@@ -1,0 +1,28 @@
+---
+import Base from "../layouts/Base.astro";
+import Signup from "../components/Signup.astro";
+import { links } from "../config";
+---
+<Base title="Free game dev class" description="Sign up for a free live game development class with Indie Game Academy professors, and get one email when the next free class, cohort or Pitch Night is coming." crumbs={[{ label: "Learn", href: "/learn/" }, { label: "Free class" }]}>
+  <section class="page-hero page-hero--banners" style="padding-bottom:var(--space-16)">
+    <div class="wrap split">
+      <div>
+        <span class="kicker" style="color:var(--white)">Free class</span>
+        <h1>Learn game dev live, free</h1>
+        <p class="lead">Get a free class with our professors. Recent ones: rapid prototyping and paper prototyping, and building a 3D platformer in Unreal from nothing. Leave your email and we'll send you the next one.</p>
+        <Signup label="Send me the free class" />
+        <p class="caption" style="color:var(--white);margin-top:var(--space-3)">No spam. Unsubscribe any time.</p>
+      </div>
+      <div class="card">
+        <h3>What you'll get</h3>
+        <ul class="checks">
+          <li>A free live class, with the recording</li>
+          <li>The date of the next free Level 1 weekend</li>
+          <li>Pitch Night and showcase invites</li>
+          <li>Templates and guides from Ready Dev Start</li>
+        </ul>
+        <p class="muted">Rather chat now? <a href={links.discord}>Join the Discord</a>.</p>
+      </div>
+    </div>
+  </section>
+</Base>

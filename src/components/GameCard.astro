@@ -1,0 +1,11 @@
+---
+interface Props { game: { slug: string; title: string; image: string | null; genres: string[] } }
+const { game } = Astro.props;
+---
+<a class="game-card" href={`/games/${game.slug}/`}>
+  {game.image ? <img src={game.image} alt={`${game.title} key art`} loading="lazy" width="480" height="270" /> : <img src="/brand/house-banners.jpg" alt="" loading="lazy" width="480" height="270" />}
+  <div class="game-card__body">
+    <span class="game-card__title">{game.title}</span>
+    {game.genres.length > 0 && <span class="game-card__genres">{game.genres.slice(0, 3).join(" · ")}</span>}
+  </div>
+</a>
