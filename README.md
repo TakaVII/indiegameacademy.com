@@ -42,15 +42,19 @@ Set a repository variable `PUBLIC_GTM_ID` (Settings > Secrets and variables > Ac
 2. Push to `main`. The workflow `.github/workflows/deploy.yml` builds and deploys.
 3. **Settings > Pages > Custom domain:** `indiegameacademy.com` (the `public/CNAME` file sets it too). Tick **Enforce HTTPS** once the certificate is issued.
 
-## DNS at Namecheap (do this only when the site is approved to go live)
-Domain List > `indiegameacademy.com` > Manage > **Advanced DNS**.
-1. Remove the current `A` / `CNAME` records for `@` and `www` that point to the WordPress host. **Keep** every other record: `MX`, `TXT` (SPF, DKIM, Google verification), and the `readydevstart` CNAME.
-2. Add four `A` records, Host `@`:
+## DNS at Namecheap
+The domain uses **Namecheap Web Hosting DNS** (nameservers `dns1/dns2.namecheaphosting.com`), so records are edited in the hosting's cPanel, **not** in Advanced DNS: Namecheap > Hosting List > Go to cPanel > **Zone Editor** > Manage `indiegameacademy.com`. Don't change the nameservers: that would cut off the WordPress hosting and the cPanel mail records.
+
+**Preview (live since 2026-11-13):** CNAME `new.indiegameacademy.com.` → `takavii.github.io`. Set the Pages custom domain to `new.indiegameacademy.com` to review the site there.
+
+**Go-live (only when approved):**
+1. Edit the `A` record of `indiegameacademy.com.` (now `66.29.132.121`, the WordPress host) and the `www` CNAME. **Keep** every other record: `MX` (Google Workspace), `TXT` (SPF, DKIM, DMARC, Google verification), the Mailchimp/Mandrill `_domainkey` CNAMEs, `mail`/`webmail`/`cpanel` records, and the `readydevstart` CNAME.
+2. Replace the root `A` record with four `A` records for `indiegameacademy.com.`:
    `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
 3. Optional IPv6, four `AAAA` records, Host `@`:
    `2606:50c0:8000::153`, `2606:50c0:8001::153`, `2606:50c0:8002::153`, `2606:50c0:8003::153`
-4. `CNAME` record, Host `www`, Value `takavii.github.io.`
-5. TTL Automatic. Propagation takes minutes to a few hours.
+4. Point the `www` CNAME to `takavii.github.io`, and set the Pages custom domain to `indiegameacademy.com`.
+5. Propagation takes about 30 minutes (TTL 14400 on the old records can keep some visitors on WordPress for up to 4 hours; lower the TTL to 300 a day before).
 6. Recommended: verify the domain for the GitHub account (Settings > Pages > Add a verified domain) to stop domain takeovers.
 
 Before switching, decide where the WordPress store, logins and course access (WooCommerce, WishList Member) go, if anything still uses them. The static site has no checkout or login.
